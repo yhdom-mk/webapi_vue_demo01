@@ -16,8 +16,12 @@ const router = createRouter({
       component: () => import("../views/SignIn.vue"),
     },
     {
+      path: "/album",
+      component: () => import("../components/Album.vue"),
+    },
+    {
       path: "/tune",
-      component: () => import("../componemts/Tune.vue"),
+      component: () => import("../components/Tune.vue"),
     }
   ]
 });
