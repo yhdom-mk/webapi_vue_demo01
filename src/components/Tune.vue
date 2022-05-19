@@ -1,4 +1,7 @@
 <template>
+  <h1>Tune</h1>
+  <h3>This page is for users Only.</h3>
+  <h3>（このページはユーザ専用ページです）</h3>
   <div>
     <div>
       <button type="button"
@@ -108,15 +111,33 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref, onMounted} from 'vue'
+import firebase from 'firebase/compat/app';
+import "firebase/compat/auth";
+import { useRouter } from 'vue-router';
+import { onBeforeUnmount } from 'vue';
 
-export default {
-  name: 'Tune',
-  // props: {
-  //   msg: String
-  // },
-  setup() {
+const router = useRouter()
+  const authListener = firebase.auth().onAuthStateChanged(function(user) {
+    if(!user) {
+      alert(
+        'you must be logged in to view this. Redirecting to the home page'
+        + '（このページを見るためにはログインが必要です。ホーム画面にリダイレクトします）'
+      )
+      router.push('/')
+    }
+  })
+
+  onBeforeUnmount(()=> {
+    authListener()
+  })
+// export default {
+//   name: 'Tune',
+//   // props: {
+//   //   msg: String
+//   // },
+//   setup() {
     const tunes =ref([]);
     const albums =ref([]);
     const modalTitle =ref('');
@@ -124,20 +145,20 @@ export default {
     const TuneName =ref('');
     const Album =ref('');
     const DateOfJoining =ref('');
-    const PhotoFileName =ref('anonymous.png');
-    const PhotoPath =variables.PHOTO_URL
+    // const PhotoFileName =ref('anonymous.png');
+    // const PhotoPath =variables.PHOTO_URL
 
-    return {
-      tunes,
-      albums,
-      modalTitle,
-      TuneId,
-      TuneName,
-      Album,
-      DateOfJoining,
-      PhotoFileName,
-      PhotoPath
-    }
-  }
-}
+//     return {
+//       tunes,
+//       albums,
+//       modalTitle,
+//       TuneId,
+//       TuneName,
+//       Album,
+//       DateOfJoining,
+//       // PhotoFileName,
+//       // PhotoPath
+//     }
+//   }
+// }
 </script>

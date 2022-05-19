@@ -1,4 +1,7 @@
 <template>
+  <h1>Album</h1>
+  <h3>This page is for users Only.</h3>
+  <h3>（このページはユーザ専用ページです）</h3>
   <div>
     <div>
       <button type="button"
@@ -120,16 +123,34 @@
   </div>
 </template>
 
-<script>
+<script setup>
 // import { ref, onMounted} from '@vue/composition-api'
 import { ref, onMounted} from 'vue'
+import firebase from 'firebase/compat/app';
+import "firebase/compat/auth";
+import { useRouter } from 'vue-router';
+import { onBeforeUnmount } from 'vue';
 
-export default {
-  name: 'Album',
-  // props: {
-  //   msg: String
-  // },
-  setup() {
+const router = useRouter()
+  const authListener = firebase.auth().onAuthStateChanged(function(user) {
+    if(!user) {
+      alert(
+        'you must be logged in to view this. Redirecting to the home page'
+        + '（このページを見るためにはログインが必要です。ホーム画面にリダイレクトします）'
+      )
+      router.push('/')
+    }
+  })
+
+  onBeforeUnmount(()=> {
+    authListener()
+  })
+// export default {
+//   name: 'Album',
+//   // props: {
+//   //   msg: String
+//   // },
+//   setup() {
     const albums =ref([]);
     const modalTitle =ref('');
     const AlbumName =ref('');
@@ -138,16 +159,16 @@ export default {
     const AlbumNameFilter =ref('');
     const albumsWithoutFilter =ref([]);
 
-    return {
-      albums,
-      modalTitle,
-      AlbumName,
-      AlbumId,
-      AlbumIdFilter,
-      AlbumNameFilter,
-      albumsWithoutFilter
-    }
-  }
-}
+//     return {
+//       albums,
+//       modalTitle,
+//       AlbumName,
+//       AlbumId,
+//       AlbumIdFilter,
+//       AlbumNameFilter,
+//       albumsWithoutFilter
+//     }
+//   }
+// }
 
 </script>
