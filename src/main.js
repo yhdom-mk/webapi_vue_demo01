@@ -2,14 +2,12 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import firebase from 'firebase/compat/app';
-import './index.css'
+import VUE_APP_FIREBASE_CONFIG from './fireconfig.js';
+import './index.css';
 // import { initializeApp } from "firebase/app";
 
 ///Firebase configuration///
-// /const firebaseConfig = process.env.VUE_APP_FIREBASE_CONFIG
-const firebaseConfig = {
-  
-};
+const firebaseConfig = VUE_APP_FIREBASE_CONFIG;
 
 ///Initialize Firebase///
 firebase.initializeApp(firebaseConfig);
