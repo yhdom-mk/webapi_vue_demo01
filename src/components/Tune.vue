@@ -114,6 +114,7 @@ import { ref, onMounted, onBeforeUnmount } from 'vue'
 import firebase from 'firebase/compat/app';
 import "firebase/compat/auth";
 import { useRouter } from 'vue-router';
+import variables from '../variables.js'
 // import { onBeforeUnmount } from 'vue';
 
 const router = useRouter()
