@@ -1,7 +1,6 @@
 <template>
   <h1>Tune</h1>
-  <h3>This page is for users Only.（このページはユーザ専用ページです）</h3>
-  <div>
+  <div class="container">
     <div>
       <button type="button"
         class="btn btn-primary m-2 float-end"
@@ -93,7 +92,6 @@
               <img width="250px" height="250px"
               v-bind:src="PhotoPath+PhotoFileName"/>
               <input class="m-2" type="file" v-on:change="imageUpload"/>
-
             </div>
           </div>
           <button type="button" v-on:click="createClick"
@@ -108,6 +106,7 @@
       </div>
     </div>
   </div>
+  <h6>This page is for users Only.（このページはユーザ専用ページです）</h6>
 </template>
 
 <script setup>

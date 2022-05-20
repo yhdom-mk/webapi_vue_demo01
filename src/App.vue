@@ -1,21 +1,29 @@
 <template>
-  <div>
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <span v-if="isLoggedIn">
-        <router-link to="/album">Album</router-link> |
-        <router-link to="/tune">Tune</router-link> |
-        <button @click="signOut">Logout</button>
-      </span>
-      <span v-else>
-        <router-link to="/register">Register</router-link> |
-        <router-link to="/sign-in">Login</router-link> |
-      </span>
+    <nav class="navbar navbar-light bg-light">
+      <div class="container-fluid">
+        <button type="button" class="btn btn-outline-success">
+          <router-link to="/">Home</router-link>
+        </button>
+        <span v-if="isLoggedIn">
+          <button type="button" class="btn btn-outline-success">
+            <router-link to="/album">Album</router-link>
+          </button>
+          <button type="button" class="btn btn-outline-success">
+            <router-link to="/tune">Tune</router-link>
+          </button>
+          <button type="button" class="btn btn-success" @click="signOut">Logout</button>
+        </span>
+        <span v-else>
+          <button type="button" class="btn btn-outline-success">
+            <router-link to="/register">Register</router-link>
+          </button>
+          <button type="button" class="btn btn-outline-success">
+            <router-link to="/sign-in">Login</router-link>
+          </button>
+        </span>
+      </div>
     </nav>
     <router-view />
-  </div>
-  <!-- <Album />
-  <Tune /> -->
 </template>
 
 <script setup>

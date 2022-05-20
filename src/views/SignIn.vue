@@ -1,10 +1,15 @@
 <template>
   <h1>SignIn（ログイン画面）</h1>
   <h2>Login your Account（アカウントをお持ちの方）</h2>
-  <p><input type="text" placeholder="Email" v-model="email"/></p>
-  <p><input type="password" placeholder="Password" v-model="password"/></p>
-  <p v-if="errMsg">{{ errMsg }}</p>
-  <p><button v-on:click="signin">Submit（送信）</button></p>
+  <div class="container">
+    <p><input class="form-control" type="text" placeholder="Email" v-model="email"/></p>
+    <p><input class="form-control" type="password" placeholder="Password" v-model="password"/></p>
+    <div v-if="errMsg" class="alert alert-danger" role="alert">
+      <p>{{ errMsg }}</p>
+    </div>
+  </div>
+  <p><button type="button" class="btn btn-outline-primary" v-on:click="signin">
+    Submit（送信）</button></p>
 </template>
 
 <script setup>
@@ -28,7 +33,7 @@
       })
       .catch( err => {
         switch(err.code) {
-          case 'auth/invalid-email': errMsg.value ="「email」が間違っています"
+          case 'auth/invalid-email': errMsg.value ="「email」または「password」が間違っています"
             break
           case 'auth/user-not-found': errMsg.value ="この「email」のユーザが見つかりません"
             break

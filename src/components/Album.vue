@@ -1,14 +1,13 @@
 <template>
   <h1>Album</h1>
-  <h3>This page is for users Only.（このページはユーザ専用ページです</h3>
-  <div>
+  <div class="container">
     <div>
       <button type="button"
         class="btn btn-primary m-2 float-end"
         data-bs-toggle="modal"
         data-bs-target="#exampleModal"
         v-on:click="addClick">
-        Add Albun
+        Add Album
       </button>
       <table class="table table-striped">
         <thead>
@@ -120,6 +119,8 @@
       </div>
     </div>
   </div>
+  <h6>This page is for users Only.（このページはユーザ専用ページです）</h6>
+  
 </template>
 
 <script setup>
@@ -206,10 +207,10 @@ const createClick = ()=> {
   },
 
   const FilterFn = ()=> {
-    var AlbumIdFilter =AlbumIdFilter.value; //?????
-    var AlbumNameFilter =AlbumNameFilter.value
+    AlbumIdFilter =AlbumIdFilter.value; //?????
+    AlbumNameFilter =AlbumNameFilter.value
     
-    albums.value = albumsWithoutFilter.value.filter(  //??おそらくこれできる
+    albums.value = albumsWithoutFilter.value.filter(  //??
       function(el) {
         return el.AlbumId.toString().toLowerCase().includes(
           AlbumIdFilter.toString().trim().toLowerCase()
