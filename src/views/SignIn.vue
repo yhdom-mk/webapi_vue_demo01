@@ -1,10 +1,10 @@
 <template>
-  <h1>SignIn</h1>
-  <h2>Login your Account</h2>
+  <h1>SignIn（ログイン画面）</h1>
+  <h2>Login your Account（アカウントをお持ちの方）</h2>
   <p><input type="text" placeholder="Email" v-model="email"/></p>
   <p><input type="password" placeholder="Password" v-model="password"/></p>
   <p v-if="errMsg">{{ errMsg }}</p>
-  <p><button v-on:click="signin">Submit</button></p>
+  <p><button v-on:click="signin">Submit（送信）</button></p>
 </template>
 
 <script setup>
