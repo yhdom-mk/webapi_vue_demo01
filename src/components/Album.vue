@@ -128,6 +128,7 @@ import { ref, onMounted, onBeforeUnmount } from 'vue'
 import firebase from 'firebase/compat/app';
 import "firebase/compat/auth";
 import { useRouter } from 'vue-router';
+import axios from 'axios'
 import variables from '../variables.js'
 // import { onBeforeUnmount } from 'vue';
 // import { ref, onMounted} from '@vue/composition-api'
@@ -173,17 +174,17 @@ const editClick = (abm)=> {
   modalTitle.value ="Edit Album";
   AlbumId.value =abm.AlbumId;
   AlbumName.value =abm.AlbumName;
-},
+}
 
 const createClick = ()=> {
   axios.post(variables.API_URL + "/album", {
     AlbumName: AlbumName.value
   })
   .then((response) => {
-    this.refreshData();
+    refreshData();
     alert(response.data);
   })
-},
+}
 
   const updateClick = ()=> {
     axios.put(variables.API_URL + "/album", {
@@ -191,10 +192,10 @@ const createClick = ()=> {
       AlbumName: AlbumName.value
     })
     .then((response) => {
-      this.refreshData();
+      refreshData();
       alert(response.data);
     })
-  },
+  }
 
   const deleteClick = ()=> {
     if(!confirm("Are you sure?")){
@@ -202,10 +203,10 @@ const createClick = ()=> {
     }
     axios.delete(variables.API_URL + "/album/" + id)
     .then((response) => {
-      this.refreshData();
+      refreshData();
       alert(response.data);
     });
-  },
+  }
 
   const FilterFn = ()=> {
     AlbumIdFilter =AlbumIdFilter.value; //?????
@@ -221,7 +222,7 @@ const createClick = ()=> {
         )
       }
     )
-  },
+  }
 
   const sortResult = (prop, asc)=> {
     albums.value = albumsWithoutFilter.value.sort(function(a,b) {
@@ -235,7 +236,7 @@ const createClick = ()=> {
   }
   
   onMounted(()=> {
-    this.refreshData();
+    refreshData();
   })
 
 // export default {

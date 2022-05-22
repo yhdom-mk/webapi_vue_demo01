@@ -114,6 +114,7 @@ import { ref, onMounted, onBeforeUnmount } from 'vue'
 import firebase from 'firebase/compat/app';
 import "firebase/compat/auth";
 import { useRouter } from 'vue-router';
+import axios from 'axios'
 import variables from '../variables.js'
 // import { onBeforeUnmount } from 'vue';
 
@@ -139,7 +140,7 @@ const TuneId =ref(0);
 const TuneName =ref('');
 const Album =ref('');
 const DateOfJoining =ref('');
-const PhotoFileName = ref("anonymous.png"),
+const PhotoFileName = ref("anonymous.png")
 // const PhotoPath = ref(variables.PHOTO_URL)
 
 const refreshData = ()=> {
@@ -176,7 +177,7 @@ const createClick = ()=> {
     PhotoFileName: PhotoFileName.value
   })
   .then((response) => {
-    this.refreshData();
+    refreshData();
     alert(response.data);
   })
 }
@@ -190,7 +191,7 @@ const updateClick = ()=> {
     PhotoFileName: PhotoFileName.value
   })
   .then((response) => {
-    this.refreshData();
+    refreshData();
     alert(response.data);
   })
 }
@@ -201,7 +202,7 @@ const deleteClick = ()=> {
   }
   axios.delete(variables.API_URL + "/tune/" + id)
   .then((response) => {
-    this.refreshData();
+    refreshData();
     alert(response.data);
   });
 }
@@ -220,7 +221,7 @@ const imageUpload = (event)=> {
 }
 
 onMounted(()=> {
-  this.refreshData();
+  refreshData();
 })
 
 // export default {
