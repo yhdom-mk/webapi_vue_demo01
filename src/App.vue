@@ -11,7 +11,7 @@
           <button type="button" class="btn btn-outline-success">
             <router-link to="/tune">Tune</router-link>
           </button>
-          <button type="button" class="btn btn-success" @click="signOut">Logout</button>
+          <button type="button" class="btn btn-secondary" @click="signOut">Logout</button>
         </span>
         <span v-else>
           <button type="button" class="btn btn-outline-success">
