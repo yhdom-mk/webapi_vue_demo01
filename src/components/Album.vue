@@ -7,7 +7,7 @@
         data-bs-toggle="modal"
         data-bs-target="#exampleModal"
         v-on:click="addClick">
-        Add Album
+        Add Album（追加）
       </button>
       <table class="table table-striped">
         <thead>
@@ -98,7 +98,7 @@
       <div class="modal-dialog modal-lg modal-dialog-centerd"/>
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">{{modalTitle}}</h5>
+          <h5 class="modal-title" id="exampleModalLabel">{{ modalTitle }}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"
           aria-label="Close"></button>
         </div>
@@ -107,14 +107,12 @@
             <span class="input-group-text">Album Name</span>
             <input type="text" class="form-control" v-model="AlbumName"/>
           </div>
-          <button type="button" v-on:click="createClick"
-          v-if="AlbumId==0" class="btn btn-primary">
-            Create
-          </button>
-          <button type="button" v-on:click="updateClick"
-          v-if="AlbumId!=0" class="btn btn-primary">
-            Update
-          </button>
+          <div>
+            <button v-if="AlbumId==0" type="button" v-on:click="createClick"
+             class="btn btn-primary">Create（作成）</button>
+            <button v-else-if="AlbumId !=0" type="button" v-on:click="updateClick"
+             class="btn btn-primary">Update（更新）</button>
+          </div>
         </div>
       </div>
     </div>
@@ -138,7 +136,7 @@ const authListener = firebase.auth().onAuthStateChanged(function(user) {
   if(!user) {
     alert(
       'you must be logged in to view this. Redirecting to the home page\n'
-      +'（このページを見るためにはログインが必要です。ホーム画面にリダイレクトします）'
+      +'（専用ページを見るためにはログインが必要です。ホーム画面にリダイレクトします）'
     )
     router.push('/')
   }
@@ -168,43 +166,54 @@ const addClick = ()=> {
   modalTitle.value ="Add Album";
   AlbumId.value =0;
   AlbumName.value ="";
+  confirm("下記のフォームで追加してください");
+
 }
 
 const editClick = (abm)=> {
+  if(!confirm("Are you sure, edit this one?\nこのアルバムネームを編集しますか？")){
+    return;
+  }
   modalTitle.value ="Edit Album";
   AlbumId.value =abm.AlbumId;
   AlbumName.value =abm.AlbumName;
 }
 
 const createClick = ()=> {
+  if(!confirm("Are you sure, create this one?\nこのアルバムネームを新規作成しますか？")){
+    return;
+  }
   axios.post(variables.API_URL + "/album", {
     AlbumName: AlbumName.value
   })
   .then((response) => {
     refreshData();
-    alert(response.data);
+    // alert(response.data);
   })
 }
 
-  const updateClick = ()=> {
+  const updateClick = ()=> {   
     axios.put(variables.API_URL + "/album", {
       AlbumId: AlbumId.value,
       AlbumName: AlbumName.value
     })
     .then((response) => {
+      if(!confirm("Are you sure, update this one?\nこのアルバムネームを上書きしますか？")){
+        return;
+      }
       refreshData();
-      alert(response.data);
+      // alert(response.data);
     })
   }
 
-  const deleteClick = ()=> {
-    if(!confirm("Are you sure?")){
+  const deleteClick = (id)=> {
+    if(!confirm("Are you sure, delete this one?\nこのアルバムを削除してもいいですか？")){
       return;
     }
     axios.delete(variables.API_URL + "/album/" + id)
     .then((response) => {
       refreshData();
-      alert(response.data);
+      alert(`AlbumID:${id}を削除しました`);
     });
   }
 
