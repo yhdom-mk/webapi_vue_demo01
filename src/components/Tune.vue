@@ -82,8 +82,8 @@
               <div class="input-group mb-3">
                 <span class="input-group-text">Album</span>
                 <select class="form-select" v-model="Album">
-                  <option v-for="al in albums" :key="al.id" :value="al.id">
-                    {{ al.AlbumName }}
+                  <option v-for="alb in albums" :key="alb">
+                    {{ alb.AlbumName }}
                   </option>
                 </select>
               </div>
@@ -153,7 +153,15 @@ const refreshData = ()=> {
   });
 }
 
+const getAlbums = ()=> {
+  axios.get(variables.API_URL + '/album')
+  .then((response) => {
+    albums.value = response.data
+  })
+}
+
 const addClick = ()=> {
+  getAlbums();
   modalTitle.value ="Add Tune ( ID is Empty ) ※追加の場合、IDは空白にしてください";  // this.modalTitle 
   TuneId.value =0; // this.TuneId =0;
   TuneName.value ="";  // this.TuneName ="";
@@ -167,6 +175,7 @@ const editClick = (tun)=> {
   if(!confirm("Are you sure, edit this one?\nこの楽曲を編集しますか？")){
     return;
   }
+  getAlbums();
   modalTitle.value ="Edit Tune";
   TuneId.value =tun.TuneId;
   TuneName.value =tun.TuneName;
